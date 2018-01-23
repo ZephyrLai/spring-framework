@@ -168,6 +168,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 */
 	public AbstractAutowireCapableBeanFactory() {
 		super();
+		//ignoreDependencyInterface的作用是
 		ignoreDependencyInterface(BeanNameAware.class);
 		ignoreDependencyInterface(BeanFactoryAware.class);
 		ignoreDependencyInterface(BeanClassLoaderAware.class);
@@ -261,10 +262,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	}
 
 	/**
-	 * Ignore the given dependency interface for autowiring.
+	 * <p>Ignore the given dependency interface for autowiring.
+	 * <p>忽略给定接口的自动注入功能
 	 * <p>This will typically be used by application contexts to register
-	 * dependencies that are resolved in other ways, like BeanFactory through
+	 * dependencies (that are resolved in other ways), like BeanFactory through
 	 * BeanFactoryAware or ApplicationContext through ApplicationContextAware.
+	 * <p>典型应用是通过applicatioin上下文注册那些被其他方式解析的依赖，
+	 * 就像BeanFactory是通过BeanFactoryAware进行依赖注入的，
+	 * ApplicationContext 是通过ApplicationContextAware进行依赖注入的（而不是Spring的自动注入）。
 	 * <p>By default, only the BeanFactoryAware interface is ignored.
 	 * For further types to ignore, invoke this method for each type.
 	 * @see org.springframework.beans.factory.BeanFactoryAware

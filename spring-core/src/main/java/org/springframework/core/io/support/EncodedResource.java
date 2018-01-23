@@ -56,6 +56,8 @@ public class EncodedResource implements InputStreamSource {
 	/**
 	 * Create a new {@code EncodedResource} for the given {@code Resource},
 	 * not specifying an explicit encoding or {@code Charset}.
+	 * <p>基于给定的Resource对象创建一个新的EncodeResource对象，
+	 * 不指定明确的字符集（utf-8等称为字符集）和编码方式</p>
 	 * @param resource the {@code Resource} to hold (never {@code null})
 	 */
 	public EncodedResource(Resource resource) {
@@ -120,6 +122,8 @@ public class EncodedResource implements InputStreamSource {
 	 * Determine whether a {@link Reader} is required as opposed to an {@link InputStream},
 	 * i.e. whether an {@linkplain #getEncoding() encoding} or a {@link #getCharset() Charset}
 	 * has been specified.
+	 * <p>决定是需要一个Reader对象还是要InputStream对象，也就是是否指定了编码方式或者字符集
+	 * （指定了编码方式或者字符集任意之一，则需要一个Reader对象）</p>
 	 * @see #getReader()
 	 * @see #getInputStream()
 	 */
@@ -131,6 +135,7 @@ public class EncodedResource implements InputStreamSource {
 	 * Open a {@code java.io.Reader} for the specified resource, using the specified
 	 * {@link #getCharset() Charset} or {@linkplain #getEncoding() encoding}
 	 * (if any).
+	 * <p>为给定的资源提供一个Reader对象（实际返回的是InputStreamReader对象），并指定其字符集或者编码方式（如果有的话）</p>
 	 * @throws IOException if opening the Reader failed
 	 * @see #requiresReader()
 	 * @see #getInputStream()
@@ -139,6 +144,7 @@ public class EncodedResource implements InputStreamSource {
 		if (this.charset != null) {
 			return new InputStreamReader(this.resource.getInputStream(), this.charset);
 		}
+		//todo 为什么是else if
 		else if (this.encoding != null) {
 			return new InputStreamReader(this.resource.getInputStream(), this.encoding);
 		}

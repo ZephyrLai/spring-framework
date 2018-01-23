@@ -326,12 +326,15 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 					"Detected cyclic loading of " + encodedResource + " - check your import definitions!");
 		}
 		try {
+			//获取Resource对象并提取为InputStream
 			InputStream inputStream = encodedResource.getResource().getInputStream();
 			try {
+				//新建InputSource对象，并将InputStream对象传入其构造器
 				InputSource inputSource = new InputSource(inputStream);
 				if (encodedResource.getEncoding() != null) {
 					inputSource.setEncoding(encodedResource.getEncoding());
 				}
+				//通过构造的InputSource实例和Resource示例，从具体xml文件中加载Bean定义
 				return doLoadBeanDefinitions(inputSource, encodedResource.getResource());
 			}
 			finally {
@@ -377,6 +380,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
 	 * Actually load bean definitions from the specified XML file.
+	 * <p>真正从具体xml文件中加载Bean定义的方法
 	 * @param inputSource the SAX InputSource to read from
 	 * @param resource the resource descriptor for the XML file
 	 * @return the number of bean definitions found

@@ -41,6 +41,9 @@ import org.springframework.core.io.Resource;
  * an {@link XmlBeanDefinitionReader}.</b> The latter allows for reading from multiple XML
  * resources and is highly configurable in its actual XML parsing behavior.
  *
+ * 当前类继承的父类：
+ * XmlBeanFactory 【extends】 DefaultListableBeanFactory 【extends】 AbstractAutowireCapableBeanFactory
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Chris Beams
@@ -68,14 +71,21 @@ public class XmlBeanFactory extends DefaultListableBeanFactory {
 	}
 
 	/**
-	 * Create a new XmlBeanFactory with the given input stream,
+	 * <p>Create a new XmlBeanFactory with the given input stream,
 	 * which must be parsable using DOM.
+	 * <p>通过给定的输入流创建一个XmlBeanFactory对象，
+	 * 而给定的输入流必须能够被DOM（文档对象模型Document Object Model）解析</p>
+	 * <p>这里的DOM指的是XML DOM，具体指的是用于获取、更改、添加或删除 XML 元素的标准</p>
 	 * @param resource XML resource to load bean definitions from
 	 * @param parentBeanFactory parent bean factory
 	 * @throws BeansException in case of loading or parsing errors
 	 */
 	public XmlBeanFactory(Resource resource, BeanFactory parentBeanFactory) throws BeansException {
+		//这里的super方法是DefaultListableBeanFactory的父类——AbstractAutowireCapableBeanFactory中的构造方法
+		//即：XmlBeanFactory	【extends DefaultListableBeanFactory】
+		// 					【extends AbstractAutowireCapableBeanFactory}】
 		super(parentBeanFactory);
+		//调用XmlBeanDefinitionReader对象中的loadBeanDefinitions方法
 		this.reader.loadBeanDefinitions(resource);
 	}
 
